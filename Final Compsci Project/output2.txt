@@ -1,0 +1,21 @@
+Mutated sequence: ACGACGTTGTAAAACGACGGTGCCAAGCTTT
+after the following mutations are performed:
+- Rotate Left Mutation (#1)
+- Phenylalanine Mutation (#3)
+- Glycine Deletion Mutation (#4)
+- Glycine Deletion Mutation (#4)
+- Glycine Deletion Mutation (#4)
+- Glycine Deletion Mutation (#4)
+
+Un-mutated sequence: AAGCTTGGCATCTGCCGTCGTTTTATAACGTCGTG
+will resemble mutated sequence: AAGCTTGGTCTTCGCCGTCGTTTCATATTATCTGTCGTG
+after the following mutations are performed:
+- Glycine Deletion Mutation (#4)
+- Isoleucine Insertion Mutation (#5)
+- Isoleucine Insertion Mutation (#5)
+- Phenylalanine Mutation (#3)
+- Glycine Deletion Mutation (#4)
+- Isoleucine Insertion Mutation (#5)
+
+Un-mutated sequence: GAGACACCCCGAGAGCTGTGGGAAGAG
+could not be mutated to find a match
