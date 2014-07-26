@@ -8,15 +8,47 @@
 
 using namespace std;
 
+int DNA::errorchecks(char* arg[]){
+    fstream myfile;
+
+    myfile.open(arg[1]);
+    if(myfile.fail()){
+        cout << endl << "Error. " << arg[1] << " does not exist." << endl;
+        return 0;}
+    myfile.close();
+
+    myfile.open(arg[2]);
+    if(myfile.fail()){
+        cout << endl << "Error. " << arg[2] << " does not exist." << endl;
+        return 0;}
+    else {myfile.close();
+            return 1;}
+
+    }
+
 // Main call function of class DNA
-void DNA::Sequencer(){
+void DNA::Sequencer(string filename1, string filename2, string filename3){
+
+    fstream file1;
+    fstream file2;
+
+    file1.open(filename1.c_str());
+    file2.open(filename2.c_str());
+    if(file1.fail() or file2.fail()){
+        cout << endl << "Error. " << filename1 << " or " << filename2 << " do not exist." << endl;
+        file1.close();
+        file2.close();
+    }
+    else{
     fstream source;
-    source.open("sources.txt");
+    source.open(filename1.c_str());
 
     fstream mutations;
-    mutations.open("mutations.txt");
+    mutations.open(filename2.c_str());
 
-    while (!source.eof()){
+    string filename = filename3;
+
+    while (source.good()){
 
         char originalsequence[80];
         char mutatedsequence[80];
@@ -30,7 +62,7 @@ void DNA::Sequencer(){
         source >> originalsequence;
         mutations >> mutatedsequence;
 
-        DNA::mutate(originalsequence, mutatedsequence);
+        DNA::mutate(originalsequence, mutatedsequence, filename);
 
         // For testing
         /*
@@ -50,14 +82,15 @@ void DNA::Sequencer(){
         Sequencer.displaysequence(mutatedsequence);
         */
     }
+    }
 }
 
 // Mutation Function
-int DNA::mutate(char sequence[], char sequence2[]){
+int DNA::mutate(char sequence[], char sequence2[], string filename){
 char tempsequence[80];
 
 ofstream output;
-output.open("output.txt", ios::app);
+output.open(filename.c_str(), ios::app);
 
 output << endl;
 
@@ -84,12 +117,12 @@ for (int a = 0; a < 6; a++){
                                     if (DNA::comparesequences(sequence2, tempsequence)){
                                         output << "Sequence: ";
                                         output.close();
-                                        DNA::outputsequence(sequence2);
-                                        output.open("output.txt", ios::app);
+                                        DNA::outputsequence(sequence, filename);
+                                        output.open(filename.c_str(), ios::app);
                                         output << endl << "was mutated to";
                                         output.close();
-                                        DNA::outputsequence(tempsequence);
-                                        output.open("output.txt", ios::app);
+                                        DNA::outputsequence(sequence2, filename);
+                                        output.open(filename.c_str(), ios::app);
                                         output << endl << "The correct mutation sequence is: "
                                             << a << ' ' << b << ' ' << c << ' ' << d << ' '
                                             << e << ' ' << f << ' ' << g << ' ' << h << endl;
@@ -105,12 +138,12 @@ for (int a = 0; a < 6; a++){
         }
     }
 output.close();
-DNA::outputsequence(sequence);
-output.open("output.txt", ios::app);
+DNA::outputsequence(sequence, filename);
+output.open(filename.c_str(), ios::app);
 output << endl << "was unable to be mutated to:";
 output.close();
-DNA::outputsequence(sequence2);
-
+DNA::outputsequence(sequence2,filename);
+return 0;
 }
 
 //ATTACAG
@@ -172,7 +205,6 @@ void DNA::mutation4(char sequence[]){
     for (int i = 0; i < (size - 2); i++){
     char temp1 = sequence[i];
     char temp2 = sequence[i+1];
-    char temp3 = sequence[i+2];
     if(temp1 == 'G' and temp2 == 'G' and GGG1 == -1)
         GGG1 = i+2;
     if(temp1 == 'G' and temp2 == 'G')
@@ -274,9 +306,9 @@ void DNA::inputsequence(char sequence[], char sequence2[]){
     }
 
 // Outputs sequence to end of text file
-void DNA::outputsequence(char sequence[]){
+void DNA::outputsequence(char sequence[], string filename){
     ofstream output;
-    output.open("output.txt", ios::app);
+    output.open(filename.c_str(), ios::app);
     output << endl;
     int i = 0, length = DNA::calcsequencelength(sequence);
     while (i < length){
@@ -293,7 +325,7 @@ void DNA::cleararray(char sequence[]){
         sequence[i] = '\0';
     }
 
-int DNA::usemutation(int mutation, char sequence[]){
+void DNA::usemutation(int mutation, char sequence[]){
     if (mutation == 5){
         DNA::mutation5(sequence);
     }

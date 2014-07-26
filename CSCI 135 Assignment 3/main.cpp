@@ -1,6 +1,6 @@
 #include "DNA.h"
 
-int main(){
+int main(int argc, char* argv[]){
 
     //DNA Sequencer;
     // To test mutation 1 and 2
@@ -13,7 +13,15 @@ int main(){
     //char sequence[20] = {'G','G','A','T','C','A','T','A','T','C'};
 
     DNA Sequencer;
-    Sequencer.Sequencer();
+
+    std::string inputname = argv[1];
+    std::string mutationsname = argv[2];
+    std::string outputname = argv[3];
+
+
+      Sequencer.Sequencer(inputname, mutationsname, outputname);
+
+
 
     // Sequencer.displaysequence(sequence);
     // Sequencer.getoriginalsequence(sequence);

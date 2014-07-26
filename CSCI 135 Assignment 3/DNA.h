@@ -22,13 +22,14 @@ class DNA
         void shiftfor5(char sequence[], int element);
         bool comparesequences(char sequence1[], char sequence2[]);
         int calcsequencelength(char sequence[]);
-        int usemutation(int mutation, char sequence[]);
+        void usemutation(int mutation, char sequence[]);
+        int errorchecks(char* arg[]);
     public:
-        void Sequencer();
+        void Sequencer(std::string filename1, std::string filename2, std::string filename3);
         void displaysequence(char sequence[]);
-        void outputsequence(char sequence[]);
+        void outputsequence(char sequence[], std::string filename);
         void cleararray(char sequence[]);
-        int mutate(char sequence[], char sequence2[]);
+        int mutate(char sequence[], char sequence2[], std::string filename);
     };
 
 #endif // DNA_H_INCLUDED
